@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Forest Fire Area Prediction</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
+                color: #333;
+            }
+            h2 {
+                color: #444;
+            }
+            form {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            label {
+                margin-top: 10px;
+                display: block;
+                color: #666;
+            }
+            input[type=number],
+            input[type=text] {
+                width: calc(100% - 22px);
+                padding: 10px;
+                margin-top: 5px;
+                margin-bottom: 20px;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+                box-sizing: border-box; 
+            }
+            input[type=submit] {
+                background-color: #5cb85c;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+            input[type=submit]:hover {
+                background-color: #4cae4c;
+            }
+            .prediction {
+                margin-top: 20px;
+                background: #dff0d8;
+                color: #3c763d;
+                border: 1px solid #d6e9c6;
+                border-radius: 4px;
+                padding: 10px;
+            }
+            .info-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-box h3 {
+            color: #444;
+        }
+        .info-box p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        </style>
+    </head>
+<body>
+    <h2>Forest Fire Area Prediction Form</h2>
+    <p>For sake of demonstration, a person can manaully enter data. If implemented it would be done automatically via an API.</p>
+    <div style="display: flex;">
+        <div class="info-box" style="flex: 30%; margin-left: 20px;">
+            <h3>Information Guide</h3>
+            <p><strong>X, Y:</strong> Coordinates within the Montesinho park map (1-9).</p>
+            <p><strong>Month, Day:</strong> Month and day of the week the observation was made.</p>
+            <p><strong>FFMC:</strong> Fine Fuel Moisture Code index from the FWI system.</p>
+            <p><strong>DMC:</strong> Duff Moisture Code index from the FWI system.</p>
+            <p><strong>DC:</strong> Drought Code index from the FWI system.</p>
+            <p><strong>ISI:</strong> Initial Spread Index from the FWI system.</p>
+            <p><strong>Temp:</strong> Temperature in Celsius degrees.</p>
+            <p><strong>RH:</strong> Relative humidity in %.</p>
+            <p><strong>Wind:</strong> Wind speed in km/h.</p>
+            <p><strong>Rain:</strong> Outside rain in mm/m2.</p>
+        </div>
+    </div>
+    <form action="/predict" method="post">
+        <label for="X">X coordinate:</label>
+        <input type="number" id="X" name="X"><br><br>
+        
+        <label for="Y">Y coordinate:</label>
+        <input type="number" id="Y" name="Y"><br><br>
+        
+        <label for="month">Month:</label>
+        <input type="text" id="month" name="month"><br><br>
+        
+        <label for="day">Day:</label>
+        <input type="text" id="day" name="day"><br><br>
+        
+        <label for="FFMC">FFMC index:</label>
+        <input type="number" id="FFMC" name="FFMC" step="0.1"><br><br>
+        
+        <label for="DMC">DMC index:</label>
+        <input type="number" id="DMC" name="DMC" step="0.1"><br><br>
+        
+        <label for="DC">DC index:</label>
+        <input type="number" id="DC" name="DC" step="0.1"><br><br>
+        
+        <label for="ISI">ISI index:</label>
+        <input type="number" id="ISI" name="ISI" step="0.1"><br><br>
+        
+        <label for="temp">Temperature (°C):</label>
+        <input type="number" id="temp" name="temp" step="0.1"><br><br>
+        
+        <label for="RH">Relative Humidity (%):</label>
+        <input type="number" id="RH" name="RH"><br><br>
+        
+        <label for="wind">Wind speed (km/h):</label>
+        <input type="number" id="wind" name="wind" step="0.1"><br><br>
+        
+        <label for="rain">Rain (mm/m2):</label>
+        <input type="number" id="rain" name="rain" step="0.1"><br><br>
+        
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction_text %}
+    <div style="margin-top: 20px;">
+        <h1><strong>Prediction:</strong></h1>
+        {{ prediction_text }}
+    </div>
+    {% endif %}
+
+</body>
+</html>
